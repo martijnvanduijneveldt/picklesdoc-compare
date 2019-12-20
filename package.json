@@ -1,0 +1,51 @@
+{
+  "scripts": {
+    "build": "node node_modules/typescript/bin/tsc",
+    "watch": "node node_modules/typescript/bin/tsc -w",
+    "test": "mocha -r ts-node/register tests/**/*.test.ts",
+    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
+    "lint": "tslint -p tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "name": "picklesdoc-compare",
+  "version": "1.0.0",
+  "description": "Generate a diff between picklesdoc files",
+  "main": "./lib/index.js",
+  "keywords": [
+    "diff",
+    "pickles",
+    "picklesdoc"
+  ],
+  "files": [
+    "lib/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martijnvanduijneveldt/picklesdoc-compare.git"
+  },
+  "author": "Martijn van Duijneveldt <martijnvanduijneveldt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martijnvanduijneveldt/picklesdoc-compare/issues"
+  },
+  "homepage": "https://github.com/martijnvanduijneveldt/picklesdoc-compare#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.6",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.7.3"
+  }
+}

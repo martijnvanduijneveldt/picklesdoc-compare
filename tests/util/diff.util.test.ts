@@ -1,5 +1,5 @@
-import {assert} from 'chai';
-import {DiffEle, DiffState, DiffUtil} from '../../src/util/diff.util';
+import { assert } from 'chai';
+import { DiffEle, DiffState, DiffUtil } from '../../src/util/diff.util';
 
 class SimpleObject {
   name: string;
@@ -12,10 +12,8 @@ class SimpleObject {
 class SimpleCompareObject implements DiffEle {
   state: DiffState = DiffState.Exists;
 
-  constructor(newEle: SimpleObject | null, oldEle: SimpleObject | null) {
-
+  constructor(newEle: SimpleObject | undefined, oldEle: SimpleObject | undefined) {
   }
-
 }
 
 describe('DiffUtil', () => {

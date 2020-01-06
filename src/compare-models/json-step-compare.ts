@@ -20,11 +20,11 @@ export class JsonStepCompare implements IJsonStepCompare {
 
   state: DiffState;
 
-  constructor(newJson: IJsonStep, oldJson: IJsonStep) {
+  constructor(newJson: IJsonStep | undefined, oldJson: IJsonStep | undefined) {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Keyword = new ComparableString(newJson?.Keyword, oldJson?.Keyword);
     this.NativeKeyword = new ComparableString(newJson?.NativeKeyword, oldJson?.NativeKeyword);
-    this.Name = oldJson ? oldJson.Name : newJson?.Name;
+    this.Name = oldJson ? oldJson.Name : newJson ? newJson.Name : '';
     this.TableArgument = new JsonTableCompare(newJson?.TableArgument, oldJson?.TableArgument);
     this.DocStringArgument = new ComparableString(newJson?.NativeKeyword, oldJson?.NativeKeyword);
     // this.StepComments = JsDiffUtil.diffArrayByIndex(newJson?.S)

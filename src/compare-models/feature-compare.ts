@@ -20,7 +20,8 @@ export class JsonFeatureCompare implements DiffEle {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Name = JsDiffUtil.diffWords(newJson?.Name, oldJson?.Name);
     this.Description = JsDiffUtil.diffMarkdown(newJson?.Description, oldJson?.Description);
-    this.FeatureElements = DiffUtil.arrayByKey(JsonScenarioOutlineCompare, newJson?.FeatureElements, oldJson?.FeatureElements, 'Slug');
+    this.FeatureElements = DiffUtil.arrayByKey(JsonScenarioOutlineCompare, newJson?.FeatureElements,
+                                               oldJson?.FeatureElements, 'Slug');
     this.Background = new JsonScenarioCompare(newJson?.Background, oldJson?.Background);
     this.Tags = DiffUtil.stringArrayCompare(newJson?.Tags, oldJson?.Tags);
     this.Result = new Comparable<JsonTestResult>(newJson?.Result, oldJson?.Result);

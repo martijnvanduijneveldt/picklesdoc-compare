@@ -4,7 +4,7 @@ export interface IJsonTable {
 }
 
 export class JsonTable {
-  HeaderRow: string[]
+  HeaderRow: string[];
   DataRows: string[][];
 
   constructor(json: IJsonTable | null = null) {

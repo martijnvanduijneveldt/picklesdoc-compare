@@ -20,7 +20,7 @@ export class Documentation implements IDocumentation {
 
   constructor(json: IDocumentation | undefined = undefined) {
     this.Configuration = new Configuration(json?.Configuration);
-    this.Features = json ? json.Features.map(e => new JsonFeatureWithMetaInfo(e)): [];
+    this.Features = json ? json.Features.map(e => new JsonFeatureWithMetaInfo(e)) : [];
     this.Summary = new SummaryResult(json?.Summary);
   }
 }

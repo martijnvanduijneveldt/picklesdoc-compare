@@ -1,5 +1,5 @@
-import { IJsonFeature, JsonFeature } from "./feature";
-import { IJsonTestResult, JsonTestResult } from "./json-test-result";
+import { IJsonFeature, JsonFeature } from './feature';
+import { IJsonTestResult, JsonTestResult } from './json-test-result';
 
 export interface IJsonFeatureWithMetaInfo{
   RelativeFolder: string;
@@ -12,7 +12,7 @@ export class JsonFeatureWithMetaInfo {
   Feature: JsonFeature;
   Result: JsonTestResult;
 
-  constructor(json:IJsonFeatureWithMetaInfo){
+  constructor(json:IJsonFeatureWithMetaInfo) {
     this.RelativeFolder = json.RelativeFolder;
     this.Feature = json.Feature;
     this.Result = json.Result;

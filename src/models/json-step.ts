@@ -1,6 +1,6 @@
-import { JsonComment } from "./comment";
-import { JsonKeyword } from "./json-keyword";
-import { JsonTable } from "./json-table";
+import { JsonComment } from './comment';
+import { JsonKeyword } from './json-keyword';
+import { JsonTable } from './json-table';
 
 export interface IJsonStep {
   Keyword: JsonKeyword;

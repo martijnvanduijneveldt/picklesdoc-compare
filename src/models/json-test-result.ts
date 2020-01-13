@@ -1,4 +1,4 @@
-import {IEquals} from '../helper-models/i-equals';
+import { IEquals } from '../helper-models/i-equals';
 
 export interface IJsonTestResult extends IEquals<IJsonTestResult> {
   WasExecuted: boolean;

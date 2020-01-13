@@ -1,4 +1,4 @@
-import { JsonTable } from "./json-table";
+import { JsonTable } from './json-table';
 
 export interface IJsonExample {
   Name: string;
@@ -15,11 +15,11 @@ export class JsonExample {
   Tags: string[];
   NativeKeyword: string;
 
-  constructor(json:IJsonExample){
-    this.Name = json ? json.Name : "";
-    this.Description = json ? json.Description : "";
+  constructor(json: IJsonExample) {
+    this.Name = json ? json.Name : '';
+    this.Description = json ? json.Description : '';
     this.TableArgument = json ? new JsonTable(json.TableArgument) : new JsonTable();
     this.Tags = json ? json.Tags : [];
-    this.NativeKeyword = json ? json.NativeKeyword : "";
+    this.NativeKeyword = json ? json.NativeKeyword : '';
   }
 }

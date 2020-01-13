@@ -24,9 +24,12 @@ export class JsDiffUtil {
     return output.join('');
   }
 
-  static diffArrayByIndex(newArr: string[] | undefined, oldArr: string[] | undefined): string[] {
+  static diffArrayByIndex(newArray: string[] | undefined, oldArray: string[] | undefined): string[] {
     let i = 0;
     const result: string[] = [];
+    const oldArr = oldArray ? oldArray : [];
+    const newArr = newArray ? newArray : [];
+
     while (i < oldArr.length && i < newArr.length) {
       result[i] = JsDiffUtil.diffWords(oldArr[i], newArr[i]);
       i += 1;
@@ -42,9 +45,13 @@ export class JsDiffUtil {
     return result;
   }
 
-  static diffArrayNestedByIndex(oldArr: string[][] | undefined, newArr: string[][] | undefined): string[][] {
+  static diffArrayNestedByIndex(oldArray: string[][] | undefined, newArray: string[][] | undefined): string[][] {
     let i = 0;
     const result: string[][] = [];
+
+    const oldArr = oldArray ? oldArray : [];
+    const newArr = newArray ? newArray : [];
+
     while (i < oldArr.length && i < newArr.length) {
       result[i] = JsDiffUtil.diffArrayByIndex(oldArr[i], newArr[i]);
       i += 1;

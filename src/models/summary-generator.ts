@@ -1,12 +1,12 @@
 export interface ISummaryResult {
   Tags: ITagWithTotals[];
   Folders: IFolderWithTotals[];
-  NotTestedFolder: IFolderWithTotals[];
-  ManualFolders: IFolderWithTotals[];
-  AutomatedFolders: IFolderWithTotals[];
+  NotTestedFolders: IFolderWithTotals[] | undefined | null;
+  ManualFolders: IFolderWithTotals[] | undefined | null;
+  AutomatedFolders: IFolderWithTotals[] | undefined | null;
   Scenarios: ITotals;
   Features: ITotals;
-  FolderWithTestKinds: IFolderWithTestKinds[];
+  FolderWithTestKinds: IFolderWithTestKinds[] | undefined | null;
 }
 
 export interface ITotals {
@@ -38,17 +38,21 @@ export class SummaryResult implements ISummaryResult {
   FolderWithTestKinds: FolderWithTestKinds[];
   Folders: FolderWithTotals[];
   ManualFolders: FolderWithTotals[];
-  NotTestedFolder: FolderWithTotals[];
+  NotTestedFolders: FolderWithTotals[];
   Scenarios: Totals;
   Tags: TagWithTotals[];
 
-  constructor(json: ISummaryResult | undefined = undefined) {
-    this.AutomatedFolders = json ? json.AutomatedFolders.map(e => new FolderWithTotals(e)) : [];
+  constructor(json: ISummaryResult | undefined | null = undefined) {
+    this.AutomatedFolders = json && json.AutomatedFolders ?
+      json.AutomatedFolders.map(e => new FolderWithTotals(e)) : [];
     this.Features = new Totals(json?.Features);
-    this.FolderWithTestKinds = json ? json.FolderWithTestKinds.map(e => new FolderWithTestKinds(e)) : [];
+    this.FolderWithTestKinds = json && json.FolderWithTestKinds ?
+      json.FolderWithTestKinds.map(e => new FolderWithTestKinds(e)) : [];
     this.Folders = json ? json.Folders.map(e => new FolderWithTotals(e)) : [];
-    this.ManualFolders = json ? json.ManualFolders.map(e => new FolderWithTotals(e)) : [];
-    this.NotTestedFolder = json ? json.NotTestedFolder.map(e => new FolderWithTotals(e)) : [];
+    this.ManualFolders = json && json.ManualFolders ?
+      json.ManualFolders.map(e => new FolderWithTotals(e)) : [];
+    this.NotTestedFolders = json && json.NotTestedFolders ?
+      json.NotTestedFolders.map(e => new FolderWithTotals(e)) : [];
     this.Scenarios = new Totals(json?.Scenarios);
     this.Tags = json ? json.Tags.map(e => new TagWithTotals(e)) : [];
 

@@ -9,17 +9,17 @@ export enum ComparableState {
 
 export class Comparable<T extends IEquals<T>> {
   State: ComparableState;
-  OldValue: T | undefined;
-  Value: T | undefined;
+  OldValue: T | undefined | null;
+  Value: T | undefined | null;
 
-  constructor(oldValue: T | undefined, newValue: T | undefined) {
+  constructor(oldValue: T | undefined | null, newValue: T | undefined | null) {
     this.Value = newValue;
     this.OldValue = oldValue;
 
-    if (oldValue === undefined || newValue === undefined) {
-      if (oldValue === undefined && newValue === undefined) {
+    if (oldValue === undefined || oldValue === null || newValue === undefined || newValue === null) {
+      if ((oldValue === undefined || oldValue === null) && (newValue === undefined || newValue === null)) {
         this.State = ComparableState.Matching;
-      } else if (oldValue === undefined) {
+      } else if (oldValue === undefined || oldValue === null) {
         this.State = ComparableState.New;
       } else {
         this.State = ComparableState.Old;

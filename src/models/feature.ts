@@ -4,7 +4,7 @@ import { JsonStep, IJsonStep } from './json-step';
 
 export interface IJsonFeature {
   FeatureElements: IJsonScenarioOutline[];
-  Background: JsonScenario;
+  Background: JsonScenario | null;
   Name: string;
   Description: string;
   Tags: string[];
@@ -13,30 +13,30 @@ export interface IJsonFeature {
 
 export class JsonFeature {
   FeatureElements: IJsonScenarioOutline[];
-  Background: JsonScenario;
+  Background: JsonScenario | null;
   Name: string;
   Description: string;
   Tags: string[];
   Result: JsonTestResult;
 
-  constructor(json: IJsonFeature | null = null) {
+  constructor(json: IJsonFeature | undefined | null = undefined) {
     this.Name = json ? json.Name : '';
     this.Description = json ? json.Description : '';
     this.FeatureElements = json ? json.FeatureElements.map(e => new JsonScenarioOutline(e)) : [];
-    this.Background = json ? new JsonScenario(json.Background) : new JsonScenario();
+    this.Background = json && json.Background ? new JsonScenario(json.Background) : null;
     this.Tags = json ? json.Tags : [];
     this.Result = json ? json.Result : new JsonTestResult();
   }
 }
 
 export interface IJsonFeatureElement {
-  Name: string;
-  Slug: string;
+  Name?: string | undefined | null;
+  Slug?: string | undefined | null;
   Description: string;
   Steps: IJsonStep[];
   Tags: string[];
-  Result: IJsonTestResult;
-  Feature: JsonFeature;
+  Result?: IJsonTestResult | null;
+  Feature?: JsonFeature | null;
 }
 
 export class JsonScenario implements IJsonFeatureElement {
@@ -45,12 +45,12 @@ export class JsonScenario implements IJsonFeatureElement {
   Description: string;
   Steps: JsonStep[];
   Tags: string[];
-  Result: JsonTestResult;
-  Feature: JsonFeature;
+  Result: JsonTestResult | null;
+  Feature: JsonFeature | null;
 
   constructor(json: IJsonFeatureElement | null = null) {
-    this.Name = json ? json.Name : '';
-    this.Slug = json ? json.Slug : '';
+    this.Name = json && json.Name ? json.Name : '';
+    this.Slug = json && json.Slug ? json.Slug : '';
     this.Description = json ? json.Description : '';
     this.Steps = json ? json.Steps.map(e => new JsonStep(e)) : [];
     this.Tags = json ? json.Tags : [];

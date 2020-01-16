@@ -3,11 +3,11 @@ import { IJsonTestResult, JsonTestResult } from './json-test-result';
 
 export interface IJsonFeatureWithMetaInfo {
   RelativeFolder?: string;
-  Feature?: IJsonFeature;
+  Feature?: IJsonFeature | null;
   Result?: IJsonTestResult;
 }
 
-export class JsonFeatureWithMetaInfo {
+export class JsonFeatureWithMetaInfo implements IJsonFeatureWithMetaInfo {
   RelativeFolder: string;
   Feature: JsonFeature | null;
   Result: JsonTestResult;

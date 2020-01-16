@@ -43,19 +43,17 @@ export class SummaryResult implements ISummaryResult {
   Tags: TagWithTotals[];
 
   constructor(json: ISummaryResult | undefined | null = undefined) {
-    this.AutomatedFolders = json?.AutomatedFolders ?
-      json.AutomatedFolders.map(e => new FolderWithTotals(e)) : [];
+    this.AutomatedFolders = json?.AutomatedFolders ? json.AutomatedFolders.map(e => new FolderWithTotals(e)) : [];
     this.Features = new Totals(json?.Features);
-    this.FolderWithTestKinds = json?.FolderWithTestKinds ?
-      json.FolderWithTestKinds.map(e => new FolderWithTestKinds(e)) : [];
+    this.FolderWithTestKinds = json?.FolderWithTestKinds
+      ? json.FolderWithTestKinds.map(e => new FolderWithTestKinds(e))
+      : [];
     this.Folders = json?.Folders ? json.Folders.map(e => new FolderWithTotals(e)) : [];
-    this.ManualFolders = json && json.ManualFolders ?
-      json.ManualFolders.map(e => new FolderWithTotals(e)) : [];
-    this.NotTestedFolders = json && json.NotTestedFolders ?
-      json.NotTestedFolders.map(e => new FolderWithTotals(e)) : [];
+    this.ManualFolders = json && json.ManualFolders ? json.ManualFolders.map(e => new FolderWithTotals(e)) : [];
+    this.NotTestedFolders =
+      json && json.NotTestedFolders ? json.NotTestedFolders.map(e => new FolderWithTotals(e)) : [];
     this.Scenarios = new Totals(json?.Scenarios);
     this.Tags = json?.Tags ? json.Tags.map(e => new TagWithTotals(e)) : [];
-
   }
 }
 
@@ -105,5 +103,4 @@ export class FolderWithTestKinds implements IFolderWithTestKinds {
     this.NotTested = json ? json.NotTested : 0;
     this.Total = json ? json.Total : 0;
   }
-
 }

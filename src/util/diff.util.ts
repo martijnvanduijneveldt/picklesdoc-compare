@@ -29,9 +29,7 @@ export class DiffUtil {
     return DiffState.Exists;
   }
 
-  public static stringArrayCompare(
-    newArray: string[] | undefined, oldArray: string[] | undefined,
-  ): DiffString[] {
+  public static stringArrayCompare(newArray: string[] | undefined, oldArray: string[] | undefined): DiffString[] {
     const res: DiffString[] = [];
 
     const innerOld = oldArray === undefined ? [] : oldArray;
@@ -56,8 +54,10 @@ export class DiffUtil {
   }
 
   public static arrayByKey<TBase, TCompare extends DiffEle>(
-    type: (new (newVal: TBase | undefined, oldVal: TBase | undefined) => TCompare),
-    newArray: TBase[] | undefined, oldArray: TBase[] | undefined, key: keyof TBase,
+    type: new (newVal: TBase | undefined, oldVal: TBase | undefined) => TCompare,
+    newArray: TBase[] | undefined,
+    oldArray: TBase[] | undefined,
+    key: keyof TBase,
   ): TCompare[] {
     const res: TCompare[] = [];
 

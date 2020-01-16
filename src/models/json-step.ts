@@ -28,7 +28,8 @@ export class JsonStep implements IJsonStep {
     this.TableArgument = new JsonTable(json?.TableArgument);
     this.DocStringArgument = json?.DocStringArgument ? json.DocStringArgument : '';
     this.StepComments = json?.StepComments ? json.StepComments.map(e => new JsonComment(e)) : [];
-    this.AfterLastStepComments = json?.AfterLastStepComments ?
-      json.AfterLastStepComments.map(e => new JsonComment(e)) : [];
+    this.AfterLastStepComments = json?.AfterLastStepComments
+      ? json.AfterLastStepComments.map(e => new JsonComment(e))
+      : [];
   }
 }

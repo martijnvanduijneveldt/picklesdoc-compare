@@ -1,5 +1,4 @@
 export class PathUtil {
-
   private static pathRegex = /(?:\\|\/)/g;
 
   static getPath(path: string): string[] {

@@ -9,7 +9,6 @@ export interface IJsonStepCompare extends DiffEle {
 }
 
 export class JsonStepCompare implements IJsonStepCompare {
-
   Keyword: ComparableString;
   NativeKeyword: ComparableString;
   Name: string;
@@ -31,5 +30,4 @@ export class JsonStepCompare implements IJsonStepCompare {
     this.StepComments = [];
     this.AfterLastStepComments = [];
   }
-
 }

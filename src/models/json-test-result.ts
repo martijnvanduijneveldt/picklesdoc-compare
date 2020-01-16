@@ -18,9 +18,10 @@ export class JsonTestResult implements IEquals<JsonTestResult> {
   }
 
   equals(other: JsonTestResult): boolean {
-    return this.WasExecuted === other.WasExecuted
-      && this.WasProvided === other.WasProvided
-      && this.WasSuccessful === other.WasSuccessful;
+    return (
+      this.WasExecuted === other.WasExecuted &&
+      this.WasProvided === other.WasProvided &&
+      this.WasSuccessful === other.WasSuccessful
+    );
   }
-
 }

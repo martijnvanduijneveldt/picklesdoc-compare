@@ -27,7 +27,6 @@ export class Comparable<T extends IEquals<T>> {
     } else {
       this.State = oldValue.equals(newValue) ? ComparableState.Matching : ComparableState.NotMatching;
     }
-
   }
 }
 
@@ -51,6 +50,5 @@ export class ComparableString {
     } else {
       this.State = oldValue === newValue ? ComparableState.Matching : ComparableState.NotMatching;
     }
-
   }
 }

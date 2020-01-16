@@ -3,17 +3,17 @@ import { JsonKeyword } from './json-keyword';
 import { JsonTable } from './json-table';
 
 export interface IJsonStep {
-  Keyword: JsonKeyword;
-  NativeKeyword: string;
-  Name: string;
-  TableArgument: JsonTable;
-  DocStringArgument: string;
-  StepComments: JsonComment[];
-  AfterLastStepComments: JsonComment[];
+  Keyword?: JsonKeyword | null;
+  NativeKeyword?: string;
+  Name?: string;
+  TableArgument?: JsonTable;
+  DocStringArgument?: string;
+  StepComments?: JsonComment[];
+  AfterLastStepComments?: JsonComment[];
 }
 
 export class JsonStep implements IJsonStep {
-  Keyword: JsonKeyword;
+  Keyword: JsonKeyword | null;
   NativeKeyword: string;
   Name: string;
   TableArgument: JsonTable;
@@ -21,13 +21,14 @@ export class JsonStep implements IJsonStep {
   StepComments: JsonComment[];
   AfterLastStepComments: JsonComment[];
 
-  constructor(json: IJsonStep) {
-    this.Keyword = json.Keyword;
-    this.NativeKeyword = json.NativeKeyword;
-    this.Name = json.Name;
-    this.TableArgument = new JsonTable(json.TableArgument);
-    this.DocStringArgument = json.DocStringArgument;
-    this.StepComments = json.StepComments.map(e => new JsonComment(e));
-    this.AfterLastStepComments = json.AfterLastStepComments.map(e => new JsonComment(e));
+  constructor(json: IJsonStep | null | undefined = undefined) {
+    this.Keyword = json?.Keyword ? json.Keyword : null;
+    this.NativeKeyword = json?.NativeKeyword ? json.NativeKeyword : '';
+    this.Name = json?.Name ? json.Name : '';
+    this.TableArgument = new JsonTable(json?.TableArgument);
+    this.DocStringArgument = json?.DocStringArgument ? json.DocStringArgument : '';
+    this.StepComments = json?.StepComments ? json.StepComments.map(e => new JsonComment(e)) : [];
+    this.AfterLastStepComments = json?.AfterLastStepComments ?
+      json.AfterLastStepComments.map(e => new JsonComment(e)) : [];
   }
 }

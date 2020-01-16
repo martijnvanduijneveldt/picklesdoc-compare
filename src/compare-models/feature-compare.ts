@@ -39,7 +39,7 @@ export interface IJsonFeatureElementCompare {
   Description: string;
   Steps: IJsonStepCompare[];
   Tags: string[];
-  Result: Comparable<JsonTestResult>;
+  Result: Comparable<IJsonTestResult>;
   Feature: JsonFeatureCompare;
 }
 

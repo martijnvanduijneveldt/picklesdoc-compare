@@ -1,10 +1,11 @@
 export interface IJsonComment {
-  Text: string;
+  Text?: string;
 }
 
 export class JsonComment {
   Text: string;
-  constructor(json: IJsonComment) {
-    this.Text = json ? json.Text : '';
+
+  constructor(json: IJsonComment | null | undefined = undefined) {
+    this.Text = json?.Text ? json.Text : '';
   }
 }

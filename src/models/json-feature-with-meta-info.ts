@@ -1,20 +1,20 @@
 import { IJsonFeature, JsonFeature } from './feature';
 import { IJsonTestResult, JsonTestResult } from './json-test-result';
 
-export interface IJsonFeatureWithMetaInfo{
-  RelativeFolder: string;
-  Feature: IJsonFeature;
-  Result: IJsonTestResult;
+export interface IJsonFeatureWithMetaInfo {
+  RelativeFolder?: string;
+  Feature?: IJsonFeature;
+  Result?: IJsonTestResult;
 }
 
 export class JsonFeatureWithMetaInfo {
   RelativeFolder: string;
-  Feature: JsonFeature;
+  Feature: JsonFeature | null;
   Result: JsonTestResult;
 
-  constructor(json:IJsonFeatureWithMetaInfo) {
-    this.RelativeFolder = json.RelativeFolder;
-    this.Feature = json.Feature;
-    this.Result = json.Result;
+  constructor(json: IJsonFeatureWithMetaInfo | null | undefined = undefined) {
+    this.RelativeFolder = json?.RelativeFolder ? json.RelativeFolder : '';
+    this.Feature = json?.Feature ? new JsonFeature(json.Feature) : null;
+    this.Result = new JsonTestResult(json?.Result);
   }
 }

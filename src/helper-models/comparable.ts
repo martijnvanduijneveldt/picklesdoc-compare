@@ -33,15 +33,15 @@ export class Comparable<T extends IEquals<T>> {
 
 export class ComparableString {
   State: ComparableState;
-  OldValue: string | undefined;
-  Value: string | undefined;
+  OldValue: string | null | undefined;
+  Value: string | null | undefined;
 
-  constructor(oldValue: string | undefined, newValue: string | undefined) {
+  constructor(oldValue: string | null | undefined, newValue: string | null | undefined) {
     this.Value = newValue;
     this.OldValue = oldValue;
 
-    if (oldValue === undefined || newValue === undefined) {
-      if (oldValue === undefined && newValue === undefined) {
+    if (oldValue === undefined || oldValue === null || newValue === undefined || newValue === null) {
+      if ((oldValue === undefined || oldValue === null) && (newValue === undefined || newValue === null)) {
         this.State = ComparableState.Matching;
       } else if (oldValue === undefined) {
         this.State = ComparableState.New;

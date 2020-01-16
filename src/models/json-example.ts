@@ -1,11 +1,11 @@
 import { JsonTable } from './json-table';
 
 export interface IJsonExample {
-  Name: string;
-  Description: string;
-  TableArgument: JsonTable;
-  Tags: string[];
-  NativeKeyword: string;
+  Name?: string;
+  Description?: string;
+  TableArgument?: JsonTable;
+  Tags?: string[];
+  NativeKeyword?: string;
 }
 
 export class JsonExample {
@@ -15,11 +15,11 @@ export class JsonExample {
   Tags: string[];
   NativeKeyword: string;
 
-  constructor(json: IJsonExample) {
-    this.Name = json ? json.Name : '';
-    this.Description = json ? json.Description : '';
-    this.TableArgument = json ? new JsonTable(json.TableArgument) : new JsonTable();
-    this.Tags = json ? json.Tags : [];
-    this.NativeKeyword = json ? json.NativeKeyword : '';
+  constructor(json: IJsonExample | null | undefined = undefined) {
+    this.Name = json?.Name ? json.Name : '';
+    this.Description = json?.Description ? json.Description : '';
+    this.TableArgument = json?.TableArgument ? new JsonTable(json.TableArgument) : new JsonTable();
+    this.Tags = json?.Tags ? json.Tags : [];
+    this.NativeKeyword = json?.NativeKeyword ? json.NativeKeyword : '';
   }
 }

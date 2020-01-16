@@ -3,12 +3,12 @@ import { JsonTestResult, IJsonTestResult } from './json-test-result';
 import { JsonStep, IJsonStep } from './json-step';
 
 export interface IJsonFeature {
-  FeatureElements: IJsonScenarioOutline[];
-  Background: JsonScenario | null;
-  Name: string;
-  Description: string;
-  Tags: string[];
-  Result: JsonTestResult;
+  FeatureElements?: IJsonScenarioOutline[];
+  Background?: JsonScenario | null;
+  Name?: string;
+  Description?: string;
+  Tags?: string[];
+  Result?: JsonTestResult;
 }
 
 export class JsonFeature {
@@ -19,13 +19,13 @@ export class JsonFeature {
   Tags: string[];
   Result: JsonTestResult;
 
-  constructor(json: IJsonFeature | undefined | null = undefined) {
-    this.Name = json ? json.Name : '';
-    this.Description = json ? json.Description : '';
-    this.FeatureElements = json ? json.FeatureElements.map(e => new JsonScenarioOutline(e)) : [];
-    this.Background = json && json.Background ? new JsonScenario(json.Background) : null;
-    this.Tags = json ? json.Tags : [];
-    this.Result = json ? json.Result : new JsonTestResult();
+  constructor(json: IJsonFeature | null | undefined = undefined) {
+    this.Name = json?.Name ? json.Name : '';
+    this.Description = json?.Description ? json.Description : '';
+    this.FeatureElements = json?.FeatureElements ? json.FeatureElements.map(e => new JsonScenarioOutline(e)) : [];
+    this.Background = json?.Background ? new JsonScenario(json.Background) : null;
+    this.Tags = json?.Tags ? json.Tags : [];
+    this.Result = new JsonTestResult(json?.Result);
   }
 }
 

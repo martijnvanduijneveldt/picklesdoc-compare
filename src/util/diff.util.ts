@@ -54,15 +54,15 @@ export class DiffUtil {
   }
 
   public static arrayByKey<TBase, TCompare extends DiffEle>(
-    type: new (newVal: TBase | undefined, oldVal: TBase | undefined) => TCompare,
-    newArray: TBase[] | undefined,
-    oldArray: TBase[] | undefined,
+    type: new (newVal: TBase | null | undefined, oldVal: TBase | null | undefined) => TCompare,
+    newArray: TBase[] | null | undefined,
+    oldArray: TBase[] | null | undefined,
     key: keyof TBase,
   ): TCompare[] {
     const res: TCompare[] = [];
 
-    const innerOld = oldArray === undefined ? [] : oldArray;
-    const innerNew = newArray === undefined ? [] : newArray;
+    const innerOld = oldArray === undefined || oldArray === null ? [] : oldArray;
+    const innerNew = newArray === undefined || newArray === null ? [] : newArray;
 
     const innerNewKeys = innerNew.map(e => e[key]);
     const innerOldKeys = innerOld.map(e => e[key]);

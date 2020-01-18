@@ -30,11 +30,11 @@ export class JsonFeature {
 }
 
 export interface IJsonFeatureElement {
-  Name?: string | undefined | null;
-  Slug?: string | undefined | null;
-  Description: string;
-  Steps: IJsonStep[];
-  Tags: string[];
+  Name?: string | null;
+  Slug?: string | null;
+  Description?: string;
+  Steps?: IJsonStep[];
+  Tags?: string[];
   Result?: IJsonTestResult | null;
   Feature?: JsonFeature | null;
 }
@@ -48,26 +48,26 @@ export class JsonScenario implements IJsonFeatureElement {
   Result: JsonTestResult | null;
   Feature: JsonFeature | null;
 
-  constructor(json: IJsonFeatureElement | null = null) {
-    this.Name = json && json.Name ? json.Name : '';
-    this.Slug = json && json.Slug ? json.Slug : '';
-    this.Description = json ? json.Description : '';
-    this.Steps = json ? json.Steps.map(e => new JsonStep(e)) : [];
-    this.Tags = json ? json.Tags : [];
+  constructor(json: IJsonFeatureElement | null | undefined = undefined) {
+    this.Name = json?.Name ? json.Name : '';
+    this.Slug = json?.Slug ? json.Slug : '';
+    this.Description = json?.Description ? json.Description : '';
+    this.Steps = json?.Steps ? json.Steps.map(e => new JsonStep(e)) : [];
+    this.Tags = json?.Tags ? json.Tags : [];
     this.Result = json ? new JsonTestResult(json.Result) : new JsonTestResult(null);
     this.Feature = json ? new JsonFeature(json.Feature) : new JsonFeature(null);
   }
 }
 
 export interface IJsonScenarioOutline extends IJsonFeatureElement {
-  Examples: JsonExample[];
+  Examples?: JsonExample[] | null;
 }
 
 export class JsonScenarioOutline extends JsonScenario implements IJsonScenarioOutline {
   Examples: JsonExample[];
 
-  constructor(json: IJsonScenarioOutline) {
+  constructor(json: IJsonScenarioOutline | null | undefined = undefined) {
     super(json);
-    this.Examples = json ? json.Examples.map(e => new JsonExample(e)) : [];
+    this.Examples = json?.Examples ? json.Examples.map(e => new JsonExample(e)) : [];
   }
 }

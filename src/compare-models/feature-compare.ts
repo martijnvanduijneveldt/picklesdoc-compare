@@ -56,7 +56,7 @@ export class JsonScenarioCompare implements DiffEle {
 
   state: DiffState;
 
-  constructor(newJson: IJsonFeatureElement | undefined | null, oldJson: IJsonFeatureElement | undefined | null) {
+  constructor(newJson: IJsonFeatureElement | null | undefined, oldJson: IJsonFeatureElement | null | undefined) {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Name = JsDiffUtil.diffWords(newJson?.Name, oldJson?.Name);
     this.Slug = oldJson && oldJson.Slug ? oldJson.Slug : newJson && newJson.Slug ? newJson.Slug : '';
@@ -69,13 +69,13 @@ export class JsonScenarioCompare implements DiffEle {
 }
 
 export interface IJsonScenarioOutlineCompare extends IJsonFeatureElementCompare {
-  Examples: JsonExampleCompare[];
+  Examples?: JsonExampleCompare[] | null;
 }
 
 export class JsonScenarioOutlineCompare extends JsonScenarioCompare implements IJsonScenarioOutlineCompare {
   Examples: JsonExampleCompare[];
 
-  constructor(newJson: IJsonScenarioOutline | undefined, oldJson: IJsonScenarioOutline | undefined) {
+  constructor(newJson: IJsonScenarioOutline | null | undefined, oldJson: IJsonScenarioOutline | null | undefined) {
     super(newJson, oldJson);
     this.Examples = DiffUtil.arrayByKey(JsonExampleCompare, newJson?.Examples, oldJson?.Examples, 'Name');
   }

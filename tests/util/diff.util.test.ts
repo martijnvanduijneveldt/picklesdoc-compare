@@ -12,7 +12,7 @@ class SimpleObject {
 class SimpleCompareObject implements DiffEle {
   state: DiffState = DiffState.Exists;
 
-  constructor(newEle: SimpleObject | undefined, oldEle: SimpleObject | undefined) {
+  constructor(newEle: SimpleObject | null | undefined, oldEle: SimpleObject | null | undefined) {
   }
 }
 

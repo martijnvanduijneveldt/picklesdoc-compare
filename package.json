@@ -39,6 +39,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.2.6",
+    "@types/diff": "^4.0.2",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "mocha": "^6.2.2",

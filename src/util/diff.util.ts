@@ -45,7 +45,7 @@ export class DiffUtil {
       const ele = innerNew[i];
       const idx = innerOld.indexOf(ele);
       if (idx === -1) {
-        const diffEle = new DiffString(innerOld[idx], DiffState.Added);
+        const diffEle = new DiffString(ele, DiffState.Added);
         res.splice(i, 0, diffEle);
       }
     }

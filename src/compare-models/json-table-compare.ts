@@ -1,12 +1,16 @@
-import { IJsonTable } from '../models/json-table';
+import { JsonTable } from '../models/json-table';
 import { JsDiffUtil } from '../util/jsdiff.util';
+import { IJsonTestResult } from '../models/json-test-result';
+import { Comparable } from '../helper-models/comparable';
+
+export type JsonTableDataRowCompare = string | Comparable<IJsonTestResult>;
 
 export class JsonTableCompare {
   HeaderRow: string[];
-  DataRows: string[][];
+  DataRows: JsonTableDataRowCompare[][];
 
-  constructor(newJson: IJsonTable | null | undefined, oldJson: IJsonTable | null | undefined) {
+  constructor(newJson: JsonTable | null | undefined, oldJson: JsonTable | null | undefined) {
     this.HeaderRow = JsDiffUtil.diffArrayByIndex(newJson?.HeaderRow, oldJson?.HeaderRow);
-    this.DataRows = JsDiffUtil.diffArrayNestedByIndex(newJson?.DataRows, oldJson?.DataRows);
+    this.DataRows = JsDiffUtil.diffNesterDataRows(newJson?.DataRows, oldJson?.DataRows);
   }
 }

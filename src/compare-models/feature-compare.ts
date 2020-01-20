@@ -1,5 +1,5 @@
 import { JsonTestResult, IJsonTestResult } from '../models/json-test-result';
-import { IJsonFeature, IJsonFeatureElement, IJsonScenarioOutline } from '../models/feature';
+import { JsonFeature, JsonScenario, JsonScenarioOutline } from '../models/feature';
 import { DiffEle, DiffState, DiffString, DiffUtil } from '../util/diff.util';
 import { Comparable } from '../helper-models/comparable';
 import { JsDiffUtil } from '../util/jsdiff.util';
@@ -7,7 +7,7 @@ import { JsonExampleCompare } from './json-example-compare';
 import { IJsonStepCompare, JsonStepCompare } from './json-step-compare';
 
 export class JsonFeatureCompare implements DiffEle {
-  FeatureElements: IJsonScenarioOutlineCompare[];
+  FeatureElements: JsonScenarioOutlineCompare[];
   Background: JsonScenarioCompare | null;
   Name: string;
   Description: string;
@@ -16,7 +16,7 @@ export class JsonFeatureCompare implements DiffEle {
 
   state: DiffState;
 
-  constructor(newJson: IJsonFeature | undefined | null, oldJson: IJsonFeature | undefined | null) {
+  constructor(newJson: JsonFeature | undefined | null, oldJson: JsonFeature | undefined | null) {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Name = JsDiffUtil.diffWords(newJson?.Name, oldJson?.Name);
     this.Description = JsDiffUtil.diffMarkdown(newJson?.Description, oldJson?.Description);
@@ -40,7 +40,7 @@ export interface IJsonFeatureElementCompare {
   Slug: string;
   Description: string;
   Steps: IJsonStepCompare[];
-  Tags: string[];
+  Tags: DiffString[];
   Result: Comparable<IJsonTestResult>;
   Feature: JsonFeatureCompare;
 }
@@ -50,20 +50,20 @@ export class JsonScenarioCompare implements DiffEle {
   Slug: string;
   Description: string;
   Steps: JsonStepCompare[];
-  Tags: string[];
-  Result: Comparable<IJsonTestResult>;
+  Tags: DiffString[];
+  Result: Comparable<JsonTestResult>;
   Feature: JsonFeatureCompare;
 
   state: DiffState;
 
-  constructor(newJson: IJsonFeatureElement | null | undefined, oldJson: IJsonFeatureElement | null | undefined) {
+  constructor(newJson: JsonScenario | null | undefined, oldJson: JsonScenario | null | undefined) {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Name = JsDiffUtil.diffWords(newJson?.Name, oldJson?.Name);
     this.Slug = oldJson && oldJson.Slug ? oldJson.Slug : newJson && newJson.Slug ? newJson.Slug : '';
     this.Description = JsDiffUtil.diffMarkdown(newJson?.Name, oldJson?.Name);
     this.Steps = DiffUtil.arrayByKey(JsonStepCompare, newJson?.Steps, oldJson?.Steps, 'Name');
-    this.Tags = JsDiffUtil.diffArrayByIndex(oldJson?.Tags, newJson?.Tags);
-    this.Result = new Comparable<IJsonTestResult>(oldJson?.Result, newJson?.Result);
+    this.Tags = DiffUtil.stringArrayCompare(newJson?.Tags, oldJson?.Tags);
+    this.Result = new Comparable<JsonTestResult>(newJson?.Result, oldJson?.Result);
     this.Feature = new JsonFeatureCompare(newJson?.Feature, oldJson?.Feature);
   }
 }
@@ -75,7 +75,7 @@ export interface IJsonScenarioOutlineCompare extends IJsonFeatureElementCompare 
 export class JsonScenarioOutlineCompare extends JsonScenarioCompare implements IJsonScenarioOutlineCompare {
   Examples: JsonExampleCompare[];
 
-  constructor(newJson: IJsonScenarioOutline | null | undefined, oldJson: IJsonScenarioOutline | null | undefined) {
+  constructor(newJson: JsonScenarioOutline | null | undefined, oldJson: JsonScenarioOutline | null | undefined) {
     super(newJson, oldJson);
     this.Examples = DiffUtil.arrayByKey(JsonExampleCompare, newJson?.Examples, oldJson?.Examples, 'Name');
   }

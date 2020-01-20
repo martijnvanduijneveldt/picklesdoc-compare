@@ -1,4 +1,8 @@
 import { diffWords, Change } from 'diff';
+import { JsonTableDataRow } from '../models/json-table';
+import { JsonTableDataRowCompare } from '../compare-models/json-table-compare';
+import { Comparable } from '../helper-models/comparable';
+import { JsonTestResult } from '../models/json-test-result';
 
 export class JsDiffUtil {
   static fullDiff(oldStr: string | null | undefined, newStr: string | null | undefined): string {
@@ -45,24 +49,57 @@ export class JsDiffUtil {
     return result;
   }
 
-  static diffArrayNestedByIndex(oldArray: string[][] | undefined, newArray: string[][] | undefined): string[][] {
+  private static diffDataRow(
+    newArray: JsonTableDataRow[] | undefined,
+    oldArray: JsonTableDataRow[] | undefined,
+  ): JsonTableDataRowCompare[] {
     let i = 0;
-    const result: string[][] = [];
+    const result: JsonTableDataRowCompare[] = [];
+    const oldArr = oldArray ? oldArray : [];
+    const newArr = newArray ? newArray : [];
+
+    const oldLengthWithoutTests = oldArr.length - 1;
+    const newLengthWithoutTests = newArr.length - 1;
+
+    while (i < oldLengthWithoutTests && i < newLengthWithoutTests) {
+      result[i] = JsDiffUtil.diffWords(oldArr[i] as string, newArr[i] as string);
+      i += 1;
+    }
+
+    for (i; i < oldLengthWithoutTests; i += 1) {
+      result[i] = `<del>${oldArr[i]}</del>`;
+    }
+
+    for (i; i < newLengthWithoutTests; i += 1) {
+      result[i] = `<ins>${newArr[i]}</ins>`;
+    }
+
+    result[i] = new Comparable<JsonTestResult>(newArr[i] as JsonTestResult, oldArr[i] as JsonTestResult);
+
+    return result;
+  }
+
+  static diffNesterDataRows(
+    newArray: JsonTableDataRow[][] | undefined,
+    oldArray: JsonTableDataRow[][] | undefined,
+  ): JsonTableDataRowCompare[][] {
+    let i = 0;
+    const result: JsonTableDataRowCompare[][] = [];
 
     const oldArr = oldArray ? oldArray : [];
     const newArr = newArray ? newArray : [];
 
     while (i < oldArr.length && i < newArr.length) {
-      result[i] = JsDiffUtil.diffArrayByIndex(oldArr[i], newArr[i]);
+      result[i] = this.diffDataRow(newArr[i], oldArr[i]);
       i += 1;
     }
 
     for (i; i < oldArr.length; i += 1) {
-      result[i] = oldArr[i].map(e => `<del>${e}</del>`);
+      result[i] = this.diffDataRow(undefined, oldArr[i]);
     }
 
     for (i; i < newArr.length; i += 1) {
-      result[i] = newArr[i].map(e => `<ins>${e}</ins>`);
+      result[i] = this.diffDataRow(newArr[i], undefined);
     }
 
     return result;

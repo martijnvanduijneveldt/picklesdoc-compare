@@ -1,4 +1,4 @@
-import { IJsonExample } from '../models/json-example';
+import { JsonExample } from '../models/json-example';
 import { DiffEle, DiffState, DiffUtil } from '../util/diff.util';
 import { JsonTableCompare } from './json-table-compare';
 import { JsDiffUtil } from '../util/jsdiff.util';
@@ -11,7 +11,7 @@ export class JsonExampleCompare implements DiffEle {
   NativeKeyword: string;
   state: DiffState;
 
-  constructor(oldJson: IJsonExample | null | undefined, newJson: IJsonExample | null | undefined) {
+  constructor(oldJson: JsonExample | null | undefined, newJson: JsonExample | null | undefined) {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Name = JsDiffUtil.diffWords(newJson?.Name, oldJson?.Name);
     this.Description = JsDiffUtil.diffMarkdown(newJson?.Description, oldJson?.Description);

@@ -12,7 +12,7 @@ export interface IJsonFeature {
 }
 
 export class JsonFeature {
-  FeatureElements: IJsonScenarioOutline[];
+  FeatureElements: JsonScenarioOutline[];
   Background: JsonScenario | null;
   Name: string;
   Description: string;

@@ -12,7 +12,7 @@ export class Comparable<T extends IEquals<T>> {
   OldValue: T | undefined | null;
   Value: T | undefined | null;
 
-  constructor(oldValue: T | undefined | null, newValue: T | undefined | null) {
+  constructor(newValue: T | undefined | null, oldValue: T | undefined | null) {
     this.Value = newValue;
     this.OldValue = oldValue;
 

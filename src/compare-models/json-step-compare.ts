@@ -1,7 +1,7 @@
 import { DiffEle, DiffState, DiffUtil } from '../util/diff.util';
 import { JsonTableCompare } from './json-table-compare';
 import { JsonCommentCompare } from './comment-compare';
-import { IJsonStep } from '../models/json-step';
+import { IJsonStep, JsonStep } from '../models/json-step';
 import { ComparableString } from '../helper-models/comparable';
 
 export interface IJsonStepCompare extends DiffEle {
@@ -19,7 +19,7 @@ export class JsonStepCompare implements IJsonStepCompare {
 
   state: DiffState;
 
-  constructor(newJson: IJsonStep | null | undefined, oldJson: IJsonStep | null | undefined) {
+  constructor(newJson: JsonStep | null | undefined, oldJson: JsonStep | null | undefined) {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Keyword = new ComparableString(newJson?.Keyword, oldJson?.Keyword);
     this.NativeKeyword = new ComparableString(newJson?.NativeKeyword, oldJson?.NativeKeyword);

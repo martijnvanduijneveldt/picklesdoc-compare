@@ -14,7 +14,7 @@
     "postversion": "git push && git push --tags"
   },
   "name": "picklesdoc-compare",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Generate a diff between picklesdoc files",
   "main": "./lib/index.js",
   "keywords": [

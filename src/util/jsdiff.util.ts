@@ -4,6 +4,10 @@ import { JsonTableDataRowCompare } from '../compare-models/json-table-compare';
 import { Comparable } from '../helper-models/comparable';
 import { JsonTestResult } from '../models/json-test-result';
 
+function isJsonTestResult(toBeDetermined: JsonTableDataRow): toBeDetermined is JsonTestResult {
+  return toBeDetermined instanceof JsonTestResult;
+}
+
 export class JsDiffUtil {
   static fullDiff(oldStr: string | null | undefined, newStr: string | null | undefined): string {
     if (oldStr !== newStr) {
@@ -58,23 +62,37 @@ export class JsDiffUtil {
     const oldArr = oldArray ? oldArray : [];
     const newArr = newArray ? newArray : [];
 
-    const oldLengthWithoutTests = oldArr.length - 1;
-    const newLengthWithoutTests = newArr.length - 1;
+    let oldLastCell: JsonTestResult | undefined = undefined;
+    let newLastCell: JsonTestResult | undefined = undefined;
 
-    while (i < oldLengthWithoutTests && i < newLengthWithoutTests) {
-      result[i] = JsDiffUtil.diffWords(oldArr[i] as string, newArr[i] as string);
+    let oldLength = oldArr.length;
+    if (isJsonTestResult(oldArr[oldLength - 1])) {
+      oldLastCell = oldArr[oldLength - 1] as JsonTestResult;
+      oldLength -= 1;
+    }
+
+    let newLength = newArr.length;
+    if (isJsonTestResult(newArr[newLength - 1])) {
+      newLastCell = newArr[newLength - 1] as JsonTestResult;
+      newLength -= 1;
+    }
+
+    while (i < oldLength && i < newLength) {
+      result[i] = JsDiffUtil.diffWords(newArr[i] as string, oldArr[i] as string);
       i += 1;
     }
 
-    for (i; i < oldLengthWithoutTests; i += 1) {
+    for (i; i < oldLength; i += 1) {
       result[i] = `<del>${oldArr[i]}</del>`;
     }
 
-    for (i; i < newLengthWithoutTests; i += 1) {
+    for (i; i < newLength; i += 1) {
       result[i] = `<ins>${newArr[i]}</ins>`;
     }
 
-    result[i] = new Comparable<JsonTestResult>(newArr[i] as JsonTestResult, oldArr[i] as JsonTestResult);
+    if (oldLastCell || newLastCell) {
+      result.push(new Comparable(newLastCell, oldLastCell));
+    }
 
     return result;
   }

@@ -1,7 +1,7 @@
 import { DiffEle, DiffState, DiffUtil } from '../util/diff.util';
 import { JsonTableCompare } from './json-table-compare';
 import { JsonCommentCompare } from './comment-compare';
-import { IJsonStep, JsonStep } from '../models/json-step';
+import { JsonStep } from '../models/json-step';
 import { ComparableString } from '../helper-models/comparable';
 
 export interface IJsonStepCompare extends DiffEle {
@@ -26,8 +26,10 @@ export class JsonStepCompare implements IJsonStepCompare {
     this.Name = oldJson?.Name ? oldJson.Name : newJson?.Name ? newJson.Name : '';
     this.TableArgument = new JsonTableCompare(newJson?.TableArgument, oldJson?.TableArgument);
     this.DocStringArgument = new ComparableString(newJson?.NativeKeyword, oldJson?.NativeKeyword);
-    // this.StepComments = JsDiffUtil.diffArrayByIndex(newJson?.S)
-    this.StepComments = [];
-    this.AfterLastStepComments = [];
+    this.StepComments = DiffUtil.commentArrayCompare(newJson?.StepComments, oldJson?.StepComments);
+    this.AfterLastStepComments = DiffUtil.commentArrayCompare(
+      newJson?.AfterLastStepComments,
+      oldJson?.AfterLastStepComments,
+    );
   }
 }

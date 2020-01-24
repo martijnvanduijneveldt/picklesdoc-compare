@@ -1,3 +1,7 @@
+import { JsonComment } from '../models/comment';
+import { JsonCommentCompare } from '../compare-models/comment-compare';
+import { JsDiffUtil } from './jsdiff.util';
+
 export enum DiffState {
   Exists = 'Exists',
   Added = 'Added',
@@ -51,6 +55,30 @@ export class DiffUtil {
     }
 
     return res;
+  }
+
+  public static commentArrayCompare(
+    newArray: JsonComment[] | undefined,
+    oldArray: JsonComment[] | undefined,
+  ): JsonCommentCompare[] {
+    let i = 0;
+    const result: JsonCommentCompare[] = [];
+    const oldArr = oldArray ? oldArray : [];
+    const newArr = newArray ? newArray : [];
+
+    while (i < oldArr.length && i < newArr.length) {
+      result[i] = new JsonCommentCompare(newArr[i], oldArr[i]);
+      i += 1;
+    }
+
+    for (i; i < oldArr.length; i += 1) {
+      result[i] = new JsonCommentCompare(undefined, oldArr[i]);
+    }
+
+    for (i; i < newArr.length; i += 1) {
+      result[i] = new JsonCommentCompare(undefined, oldArr[i]);
+    }
+    return result;
   }
 
   public static arrayByKey<TBase, TCompare extends DiffEle>(

@@ -96,7 +96,7 @@ export class DiffUtil {
     const innerOldKeys = innerOld.map(e => e[key]);
     for (const ele of innerOld) {
       const idx = innerNewKeys.indexOf(ele[key]);
-      const diffEle = new type(innerNew[idx], idx !== -1 ? ele : undefined);
+      const diffEle = new type(idx !== -1 ? innerNew[idx] : undefined, ele);
       diffEle.state = idx !== -1 ? DiffState.Exists : DiffState.Removed;
       res.push(diffEle);
     }
@@ -105,7 +105,7 @@ export class DiffUtil {
       const ele = innerNew[i];
       const idx = innerOldKeys.indexOf(ele[key]);
       if (idx === -1) {
-        const diffEle = new type(innerOld[idx], ele);
+        const diffEle = new type(ele, innerOld[idx]);
         diffEle.state = DiffState.Added;
         res.splice(i, 0, diffEle);
       }

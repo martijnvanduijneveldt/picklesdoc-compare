@@ -11,7 +11,7 @@ export class JsonExampleCompare implements DiffEle {
   NativeKeyword: string;
   state: DiffState;
 
-  constructor(oldJson: JsonExample | null | undefined, newJson: JsonExample | null | undefined) {
+  constructor(newJson: JsonExample | null | undefined, oldJson: JsonExample | null | undefined) {
     this.state = DiffUtil.getDefaultState(newJson, oldJson);
     this.Name = JsDiffUtil.diffWords(newJson?.Name, oldJson?.Name);
     this.Description = JsDiffUtil.diffMarkdown(newJson?.Description, oldJson?.Description);

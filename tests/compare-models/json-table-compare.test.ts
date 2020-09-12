@@ -46,5 +46,10 @@ describe('TableCompare', () => {
     assert.equal(res.DataRows[0][0], '<ins>row1</ins>');
     assert.equal(res.DataRows[1][0], '<ins>row2</ins>');
   });
-
+  it('Test new table', ()=>{
+    const doubleRow = new JsonTable({ DataRows: [['row1'], ['row2']] });
+    const res = new JsonTableCompare(doubleRow, null);
+    assert.equal(res.DataRows[0][0], '<ins>row1</ins>');
+    assert.equal(res.DataRows[1][0], '<ins>row2</ins>');
+  })
 });

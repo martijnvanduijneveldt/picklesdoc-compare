@@ -43,7 +43,6 @@ describe('DiffUtil', () => {
       assert.equal(res[1].name, 'key2');
     });
     it('Simple add at end', () => {
-
       const res = DiffUtil.arrayByKey<SimpleObject, SimpleCompareObject>(SimpleCompareObject, [key1, key2, key3], [key1, key2], 'name');
       assert.equal(res[0].state, DiffState.Exists);
       assert.equal(res[0].name, 'key1');

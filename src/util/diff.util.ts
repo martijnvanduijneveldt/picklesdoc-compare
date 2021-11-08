@@ -76,7 +76,7 @@ export class DiffUtil {
     }
 
     for (i; i < newArr.length; i += 1) {
-      result[i] = new JsonCommentCompare(undefined, oldArr[i]);
+      result[i] = new JsonCommentCompare(newArr[i], undefined);
     }
     return result;
   }

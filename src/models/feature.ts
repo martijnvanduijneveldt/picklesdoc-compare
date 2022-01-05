@@ -1,4 +1,4 @@
-import { JsonExample } from './json-example';
+import { IJsonExample, JsonExample } from './json-example';
 import { JsonTestResult, IJsonTestResult } from './json-test-result';
 import { JsonStep, IJsonStep } from './json-step';
 
@@ -43,7 +43,7 @@ export class JsonScenario implements IJsonFeatureElement {
   Name: string;
   Slug: string;
   Description: string;
-  Steps: JsonStep[];
+  Steps: JsonStep[] | undefined;
   Tags: string[];
   Result: JsonTestResult | null;
   Feature: JsonFeature | null;
@@ -60,7 +60,7 @@ export class JsonScenario implements IJsonFeatureElement {
 }
 
 export interface IJsonScenarioOutline extends IJsonFeatureElement {
-  Examples?: JsonExample[] | null;
+  Examples?: IJsonExample[] | null;
 }
 
 export class JsonScenarioOutline extends JsonScenario implements IJsonScenarioOutline {

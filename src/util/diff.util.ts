@@ -105,7 +105,7 @@ export class DiffUtil {
       const ele = innerNew[i];
       const idx = innerOldKeys.indexOf(ele[key]);
       if (idx === -1) {
-        const diffEle = new type(ele, innerOld[idx]);
+        const diffEle = new type(ele, undefined);
         diffEle.state = DiffState.Added;
         res.splice(i, 0, diffEle);
       }

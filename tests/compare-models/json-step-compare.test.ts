@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { it, describe, expect } from 'vitest';
 import { JsonStep } from '../../src/models/json-step';
 import { JsonComment } from '../../src/models/comment';
 import { JsonStepCompare } from '../../src/compare-models/json-step-compare';
@@ -19,14 +19,14 @@ describe('JsonStepCompare', () => {
     const after = new JsonStep({ StepComments: [singleComment, doubleComment] });
 
     const res = new JsonStepCompare(after, before);
-    assert.lengthOf(res.StepComments, 2);
+    expect(res.StepComments).lengthOf( 2);
   });
   it('Remove step', () => {
     const before = new JsonStep({ StepComments: [singleComment, doubleComment] });
     const after = new JsonStep({ StepComments: [singleComment] });
 
     const res = new JsonStepCompare(after, before);
-    assert.lengthOf(res.StepComments, 2);
-    assert.equal(res.StepComments[1].Text, `<del>${doubleComment.Text}</del>`);
+    expect(res.StepComments).lengthOf( 2);
+    expect(res.StepComments[1].Text).equal(`<del>${doubleComment.Text}</del>`);
   });
 });

@@ -3,7 +3,6 @@ import { JsonTableDataRow } from '../models/json-table';
 import { JsonTableDataRowCompare } from '../compare-models/json-table-compare';
 import { Comparable } from '../helper-models/comparable';
 import { JsonTestResult } from '../models/json-test-result';
-import { DiffEle } from './diff.util';
 
 function isJsonTestResult(toBeDetermined: JsonTableDataRow): toBeDetermined is JsonTestResult {
   return toBeDetermined instanceof JsonTestResult;

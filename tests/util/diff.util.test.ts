@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { it, describe, expect } from 'vitest';
 import { DiffEle, DiffState, DiffUtil } from '../../src/util/diff.util';
 import { JsDiffUtil } from '../../src/util/jsdiff.util';
 
@@ -27,38 +27,38 @@ describe('DiffUtil', () => {
   describe('byKey', () => {
     it('New value', () => {
       const res = DiffUtil.arrayByKey<SimpleObject, SimpleCompareObject>(SimpleCompareObject, [key1], [], 'name');
-      assert.equal(res[0].state, DiffState.Added);
-      assert.equal(res[0].name, '<ins>key1</ins>');
+      expect(res[0].state).equal( DiffState.Added);
+      expect(res[0].name).equal( '<ins>key1</ins>');
     });
     it('Delete only', () => {
       const res = DiffUtil.arrayByKey<SimpleObject, SimpleCompareObject>(SimpleCompareObject, [], [key1], 'name');
-      assert.equal(res[0].state, DiffState.Removed);
-      assert.equal(res[0].name, '<del>key1</del>');
+      expect(res[0].state).equal( DiffState.Removed);
+      expect(res[0].name).equal( '<del>key1</del>');
     });
     it('Simple add at start', () => {
       const res = DiffUtil.arrayByKey<SimpleObject, SimpleCompareObject>(SimpleCompareObject, [key1, key2], [key2], 'name');
-      assert.equal(res[0].state, DiffState.Added);
-      assert.equal(res[0].name, '<ins>key1</ins>');
-      assert.equal(res[1].state, DiffState.Exists);
-      assert.equal(res[1].name, 'key2');
+      expect(res[0].state).equal( DiffState.Added);
+      expect(res[0].name).equal( '<ins>key1</ins>');
+      expect(res[1].state).equal( DiffState.Exists);
+      expect(res[1].name).equal( 'key2');
     });
     it('Simple add at end', () => {
       const res = DiffUtil.arrayByKey<SimpleObject, SimpleCompareObject>(SimpleCompareObject, [key1, key2, key3], [key1, key2], 'name');
-      assert.equal(res[0].state, DiffState.Exists);
-      assert.equal(res[0].name, 'key1');
-      assert.equal(res[1].state, DiffState.Exists);
-      assert.equal(res[1].name, 'key2');
-      assert.equal(res[2].state, DiffState.Added);
-      assert.equal(res[2].name, '<ins>key3</ins>');
+      expect(res[0].state).equal( DiffState.Exists);
+      expect(res[0].name).equal( 'key1');
+      expect(res[1].state).equal( DiffState.Exists);
+      expect(res[1].name).equal( 'key2');
+      expect(res[2].state).equal( DiffState.Added);
+      expect(res[2].name).equal( '<ins>key3</ins>');
     });
     it('Simple add in middle', () => {
       const res = DiffUtil.arrayByKey<SimpleObject, SimpleCompareObject>(SimpleCompareObject, [key1, key3, key2], [key1, key2], 'name');
-      assert.equal(res[0].state, DiffState.Exists);
-      assert.equal(res[0].name, 'key1');
-      assert.equal(res[1].state, DiffState.Added);
-      assert.equal(res[1].name, '<ins>key3</ins>');
-      assert.equal(res[2].state, DiffState.Exists);
-      assert.equal(res[2].name, 'key2');
+      expect(res[0].state).equal( DiffState.Exists);
+      expect(res[0].name).equal( 'key1');
+      expect(res[1].state).equal( DiffState.Added);
+      expect(res[1].name).equal( '<ins>key3</ins>');
+      expect(res[2].state).equal( DiffState.Exists);
+      expect(res[2].name).equal( 'key2');
     });
   });
 
